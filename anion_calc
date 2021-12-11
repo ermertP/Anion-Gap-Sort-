@@ -1,0 +1,53 @@
+class Lab:
+    """A class Lab that initializes sodium, chloride, bicarbonate, and anion gap values."""
+    def __init__(self, sodium, chloride, bicarbonate):
+        self._sodium = sodium
+        self._chloride = chloride
+        self._bicarbonate = bicarbonate
+
+    def get_sodium(self):
+        """returns sodium"""
+        return self._sodium
+
+    def get_chloride(self):
+        """returns chloride"""
+        return self._chloride()
+
+    def get_bicarbonate(self):
+        """returns bicarbonate"""
+        return self._bicarbonate
+
+    def get_anion_gap(self):
+        """returns anion gap"""
+        return self._sodium - (self._chloride + self._bicarbonate)
+
+
+def anion_sort(anion_list):
+    """
+    Sorts a list of anion gaps in descending order using simple insertion sorting
+    """
+    for index in range(1, len(anion_list)):
+        value = anion_list[index]
+        pos = index - 1
+        while pos >= 0 and value.get_anion_gap() > anion_list[pos].get_anion_gap():
+            anion_list[pos + 1] = anion_list[pos]
+            pos -= 1
+        anion_list[pos + 1] = value
+    return anion_list
+
+
+def main():
+    patient_one_ise = Lab(150, 120, 20)
+    patient_two_ise = Lab(160, 90, 25)
+    patient_three_ise = Lab(139, 108, 17)
+    anion_list = anion_sort([patient_one_ise, patient_two_ise, patient_three_ise])
+    for i in range(len(anion_list)):
+        print(anion_list[i].get_anion_gap())
+main()
+
+
+#output: 
+#45
+#14
+#10
+
